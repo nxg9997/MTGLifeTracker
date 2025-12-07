@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Tracker</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link href="//cdn.jsdelivr.net/npm/mana-font@latest/css/mana.css" rel="stylesheet" type="text/css" /> 
+</head>
+<body>
+    <div id="app">
+        <div id="options-container">
+            <div id="options-click">
+
+            </div>
+        </div>
+        <div id="tracker-container">
+            <div v-for="(tracker, index) in trackers" :key="index" class="tracker-child" @pointerdown="onPointerDown($event, index)" @mousedown.prevent>
+                <div class="tracker-content" :class="rotationClass(index)">
+                    <div class="life-total">{{ tracker.life }}</div>
+                    <div class="counters">
+                        <div class="counter poison">
+                            <i class="ms ms-p"></i> {{ tracker.poison }}
+                        </div>
+                        <div class="counter charge">
+                            <i class="ms ms-counter-charge"></i> {{ tracker.charge }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+<script src="./js/main.js"></script>
+</html>

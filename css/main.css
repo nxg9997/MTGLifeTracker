@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+#app
+{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#tracker-container
+{
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-rows: 1fr 1fr;  /* 2 rows */
+    grid-auto-flow: column;   /* fill top-to-bottom, then next column */
+    height: 100vh;
+    width: 100vw;
+}
+
+#tracker-container > div:last-child:nth-child(odd) {
+    grid-row: span 2;
+}
+
+/* Rotate content for top row (visually top, odd-numbered in DOM) */
+#tracker-container > .tracker-child:nth-child(odd):not(:last-child) .tracker-content {
+    transform: rotate(180deg);
+}
+
+/* Rotate content for last odd child on the far right */
+#tracker-container > .tracker-child:last-child:nth-child(odd) .tracker-content {
+    transform: rotate(-90deg);
+}
+
+.tracker-child
+{
+    background-color: aquamarine;
+    border: 2px solid black;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.life-total {
+    font-size: 6em;           /* large life number */
+    font-weight: bold;
+}
+
+.counters {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.counter {
+    font-size: 1em;           /* smaller counters */
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 2px 6px;
+}
+
+
+
+
+
+#options-container
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+#options-click
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 20vh;
+    height: 20vh;
+
+    transform: translate(-50%, -50%); /* perfectly center */
+    background: #ff6666;              /* pick any color */
+    
+    border-radius: 50%;               /* makes it circular */
+    border: 2px solid black;          /* optional border */
+    box-sizing: border-box;
+    
+    z-index: 999; 
+    pointer-events: auto;
+}
