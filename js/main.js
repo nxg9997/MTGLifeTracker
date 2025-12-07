@@ -51,3 +51,20 @@ createApp({
         return { trackers, rotationClass, onPointerDown };
     }
 }).mount('#app');
+
+function centerOptions() {
+    const container = document.getElementById("options-container");
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    container.style.left = `${width / 2}px`;
+    container.style.top = `${height / 2}px`;
+    container.style.transform = "translate(-50%, -50%)";
+}
+
+// Update on resize and orientation change
+window.addEventListener("resize", centerOptions);
+window.addEventListener("orientationchange", centerOptions);
+
+// Initial positioning
+centerOptions();
