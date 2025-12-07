@@ -83,7 +83,7 @@ html, body {
 
 #options-container {
     position: fixed;       /* stays in viewport */
-    top: 50%;
+    top: 50vh;
     left: 50%;
     transform: translate(-50%, -50%);  /* center exactly */
     pointer-events: none;  /* optional: clicks pass through container */
