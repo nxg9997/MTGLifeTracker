@@ -9,26 +9,112 @@
 </head>
 <body>
     <div id="app">
+        
+
         <div id="options-container">
             <div id="options-click">
 
             </div>
         </div>
-        <div id="tracker-container">
-            <div v-for="(tracker, index) in trackers" :key="index" class="tracker-child" @pointerdown="onPointerDown($event, index)" @mousedown.prevent>
-                <div class="tracker-content" :class="rotationClass(index)">
-                    <div class="life-total">{{ tracker.life }}</div>
-                    <div class="counters">
-                        <div class="counter poison">
-                            <i class="ms ms-p"></i> {{ tracker.poison }}
-                        </div>
-                        <div class="counter charge">
-                            <i class="ms ms-counter-charge"></i> {{ tracker.charge }}
+        <transition name="fade">
+            <div id="options-overlay" v-if="showOptions">
+                <div id="options-panel">
+                    <h2>Game Settings</h2>
+
+                    <label>
+                        Player Count:
+                        <input type="number" min="1" max="8" v-model.number="options.tempPlayerCount">
+                    </label>
+
+                    <label>
+                        Starting Life:
+                        <input type="number" min="1" max="100" v-model.number="options.tempStartingLife">
+                    </label>
+
+                    <div class="options-buttons">
+                        <button @click="cancelOptions">Cancel</button>
+                        <button @click="confirmOptions">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </transition>
+        <transition name="layout" mode="out-in">
+            <div id="tracker-container" :key="playersKey">
+                <div
+                    class="tracker-child"
+                    v-for="(t, index) in trackers"
+                    :key="index"
+                    @pointerdown.prevent="onTrackerClick(index, $event)"
+                    
+                >
+                    <div class="tracker-content"
+                        @touchstart="startSwipe($event, t.id)"
+                        @touchmove="moveSwipe($event, t.id)"
+                        @touchend="endSwipe($event, t.id)"
+                    >
+                        <transition name="cmd-fade">
+                            <div class="cmd-overlay" v-if="openCmdMenu === t.id" @click.self="openCmdMenu = null">
+
+                                <div class="cmd-panel">
+                                <!-- Dual toggle -->
+                                <div class="cmd-toggle">
+                                    <label>
+                                    <input type="checkbox" v-model="t.dualCommander">
+                                    Dual Commander
+                                    </label>
+                                </div>
+
+                                <!-- Commander A -->
+                                <div class="cmd-section">
+                                    <h3>Commander A</h3>
+                                    <div class="cmd-row"
+                                        v-for="(dmg, fromId) in t.commanderA"
+                                        :key="'A' + fromId">
+                                    <span>From Player {{ fromId }}</span>
+                                    <button @click="t.decrementCmdA(fromId)">-</button>
+                                    <span>{{ dmg }}</span>
+                                    <button @click="t.incrementCmdA(fromId)">+</button>
+                                    </div>
+                                </div>
+
+                                <!-- Commander B -->
+                                <transition name="cmd-inner">
+                                    <div class="cmd-section" v-if="t.dualCommander">
+                                    <h3>Commander B</h3>
+                                    <div class="cmd-row"
+                                        v-for="(dmg, fromId) in t.commanderB"
+                                        :key="'B' + fromId">
+                                        <span>From Player {{ fromId }}</span>
+                                        <button @click="t.decrementCmdB(fromId)">-</button>
+                                        <span>{{ dmg }}</span>
+                                        <button @click="t.incrementCmdB(fromId)">+</button>
+                                    </div>
+                                    </div>
+                                </transition>
+
+                                <button class="cmd-close" @click="openCmdMenu = null">Close</button>
+
+                                </div> <!-- .cmd-panel -->
+
+                            </div> <!-- .cmd-overlay -->
+                        </transition>
+                        <div class="life-total">{{ t.effectiveLife() }}</div>
+
+                        <div class="counters">
+                            <div class="counter poison">
+                                <i class="ms ms-p"></i>
+                                <span>{{ t.poison }}</span>
+                            </div>
+
+                            <div class="counter charge">
+                                <i class="ms ms-counter-charge"></i>
+                                <span>{{ t.charge }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </transition>
     </div>
 </body>
 <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>

@@ -7,6 +7,7 @@ html, body {
     font-family: "Outfit", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+    background-color: aquamarine;
 }
 
 * {
@@ -102,4 +103,197 @@ html, body {
     color: white;
     pointer-events: auto;    /* allow clicks on the circle */
     border: 4px solid black;
+}
+
+
+
+
+
+
+/* Dark faded background behind the menu */
+#options-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+/* Hidden until opened */
+.hidden {
+    display: none;
+}
+
+/* The actual panel */
+#options-panel {
+    background: #222;
+    color: white;
+    padding: 20px;
+    width: 80%;
+    max-width: 350px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+#options-panel h2 {
+    margin-bottom: 15px;
+}
+
+#options-panel label {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+#options-panel input {
+    width: 100%;
+    padding: 8px;
+    font-size: 18px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: none;
+}
+
+.options-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.options-buttons button {
+    flex: 1;
+    padding: 10px;
+    font-size: 18px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #444;
+    color: white;
+}
+
+.options-buttons button:hover {
+    background: #666;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+}
+
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.layout-enter-from,
+.layout-leave-to {
+  opacity: 0;
+}
+
+.layout-enter-to,
+.layout-leave-from {
+  opacity: 1;
+}
+
+
+
+
+
+
+/* Darkened background */
+.cmd-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000; /* Above everything */
+  padding: env(safe-area-inset-top) 0 0 0; /* Helps on iPhone */
+}
+
+/* Panel container */
+.cmd-panel {
+  background: #222;
+  color: white;
+  width: 80%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.cmd-section {
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 10px;
+}
+
+.cmd-section:last-child {
+  border-bottom: none;
+}
+
+.cmd-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+}
+
+.cmd-row button {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(255,255,255,0.25);
+  color: white;
+}
+
+.cmd-close {
+  margin-top: 15px;
+  width: 100%;
+  padding: 10px;
+  background: #444;
+  border-radius: 10px;
+  border: none;
+  color: white;
+}
+
+/* Overlay fade animation */
+.cmd-fade-enter-active,
+.cmd-fade-leave-active {
+  transition: opacity 0.25s ease;
+}
+
+.cmd-fade-enter-from,
+.cmd-fade-leave-to {
+  opacity: 0;
+}
+
+/* Panel slide animation */
+.cmd-inner-enter-active,
+.cmd-inner-leave-active {
+  transition: 0.25s ease;
+}
+.cmd-inner-enter-from,
+.cmd-inner-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
